@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/VelvetVault/static/css/main.a4347466.css",
+    "main.js": "/VelvetVault/static/js/main.2acadfb0.js",
+    "index.html": "/VelvetVault/index.html",
+    "main.a4347466.css.map": "/VelvetVault/static/css/main.a4347466.css.map",
+    "main.2acadfb0.js.map": "/VelvetVault/static/js/main.2acadfb0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a4347466.css",
+    "static/js/main.2acadfb0.js"
+  ]
+}
