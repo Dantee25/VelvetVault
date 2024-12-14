@@ -21,10 +21,5 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-<<<<<<< HEAD
-, "index.tsx", "postcss.config.js"  ]
-=======
-  ]
->>>>>>> 97d7414 (Initialize project using Create React App)
-}
+    "src", "index.tsx", "postcss.config.js"  ]
+  }
