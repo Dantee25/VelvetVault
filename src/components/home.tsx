@@ -16,13 +16,13 @@ export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu visibility
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //useEffect(() => {
+  //  const handleScroll = () => {
+  //    setIsScrolled(window.scrollY > 50);
+  //  };
+   // window.addEventListener("scroll", handleScroll);
+  //  return () => window.removeEventListener("scroll", handleScroll);
+  //}, []);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
