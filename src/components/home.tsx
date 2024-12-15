@@ -9,12 +9,12 @@ import {
   MapPin,
   Facebook,
   Instagram,
-  Twitter,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu visibility
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +23,10 @@ export default function HomePage() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -73,11 +77,46 @@ export default function HomePage() {
                 Contact
               </a>
             </div>
-            <button className="md:hidden">
+            <button className="md:hidden" onClick={toggleMenu}>
               <Menu className="h-6 w-6 text-[#71086E]" />
             </button>
           </div>
         </div>
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white shadow-lg">
+            <div className="flex flex-col space-y-4 p-4">
+              <Link
+                to="/services"
+                className="text-gray-800 hover:text-[#71086E] transition-colors"
+                onClick={() => setIsMenuOpen(false)} // Close menu on click
+              >
+                Services
+              </Link>
+              <a
+                href="#gallery"
+                className="text-gray-800 hover:text-[#71086E] transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Gallery
+              </a>
+              <a
+                href="#about"
+                className="text-gray-800 hover:text-[#71086E] transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
+              </a>
+              <a
+                href="#contact"
+                className="text-gray-800 hover:text-[#71086E] transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       <section className="relative h-screen">
