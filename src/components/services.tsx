@@ -83,6 +83,12 @@ export default function ServicesPage() {
     },
   ];
 
+  const calculatePrice = (basePrice: number) => {
+    const multiplier =
+      vehicles.find((v) => v.type === selectedVehicle)?.multiplier || 1;
+    return basePrice * multiplier;
+  };
+
   useEffect(() => {
     if (selectedVehicle && selectedServices.length > 0) {
       const multiplier =
@@ -180,7 +186,7 @@ export default function ServicesPage() {
                     </h3>
                     <p className="text-gray-600 mb-4">{service.description}</p>
                     <div className="text-2xl font-bold text-[#71086E] mb-4">
-                      ${service.basePrice}
+                      ${calculatePrice(service.basePrice).toFixed(2)}
                     </div>
                     <ul className="space-y-2 mb-6">
                       {service.features.map((feature, index) => (
@@ -240,10 +246,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-
-
-
-
-
-
-
