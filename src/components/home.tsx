@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaTiktok } from "react-icons/fa";
 import {
   Menu,
@@ -13,16 +13,7 @@ import {
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu visibility
-
-  //useEffect(() => {
-  //  const handleScroll = () => {
-  //    setIsScrolled(window.scrollY > 50);
-  //  };
-   // window.addEventListener("scroll", handleScroll);
-  //  return () => window.removeEventListener("scroll", handleScroll);
-  //}, []);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -41,11 +32,7 @@ export default function HomePage() {
           `,
         }}
       />
-      <nav
-        className={`fixed w-full z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-transparent"
-        }`}
-      >
+      <nav className="fixed w-full z-50 bg-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="text-2xl font-bold text-[#71086E]">
