@@ -26,19 +26,24 @@ export default function HomePage() {
     // Collect form data
     const formData = new FormData(e.target as HTMLFormElement);
     const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        message: formData.get('message'),
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        phone: formData.get('phone') as string,
+        message: formData.get('message') as string,
     };
 
-    // Basic validation for email and phone number
-    if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email as string)) {
+    // Validate inputs
+    if (!data.email && !data.phone) {
+        alert('Please provide either an email address or a phone number.');
+        return;
+    }
+
+    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
         alert('Please enter a valid email address.');
         return;
     }
 
-    if (data.phone && !/^\d{10}$/.test(data.phone as string)) {
+    if (data.phone && !/^\d{10}$/.test(data.phone)) {
         alert('Please enter a valid 10-digit phone number.');
         return;
     }
@@ -46,7 +51,8 @@ export default function HomePage() {
     // Simulate form submission
     console.log('Form submitted:', data);
     alert('Thank you! Your message has been sent.');
-};
+  };
+
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -337,14 +343,13 @@ export default function HomePage() {
                 <input
                     type="email"
                     name="email"
-                    placeholder="Email Address"
+                    placeholder="Email Address (Optional)"
                     className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
-                    required
                 />
                 <input
                     type="tel"
                     name="phone"
-                    placeholder="Phone Number"
+                    placeholder="Phone Number (Optional eg:1234567890)"
                     className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
                     pattern="[0-9]{10}"
                 />
@@ -362,6 +367,7 @@ export default function HomePage() {
                     Send Message
                 </button>
             </form>
+
 
             </div>
           </div>
