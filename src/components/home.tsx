@@ -142,22 +142,19 @@ export default function HomePage() {
             {[
               {
                 title: "Interior Detailing",
-                description:
-                  "Complete interior cleaning and restoration services",
+                description: "Complete interior cleaning and restoration services",
                 image:
                   "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80",
               },
               {
                 title: "Exterior Detailing",
-                description:
-                  "Professional washing, waxing, and paint protection",
+                description: "Professional washing, waxing, and paint protection",
                 image:
                   "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&q=80",
               },
               {
                 title: "Premium Packages",
-                description:
-                  "Comprehensive detailing solutions for your vehicle",
+                description: "Comprehensive detailing solutions for your vehicle",
                 image:
                   "https://images.unsplash.com/photo-1600275669439-14e40452d20b?auto=format&fit=crop&q=80",
               },
@@ -180,8 +177,19 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          {/* Button Section */}
+          <div className="mt-16 flex justify-center">
+            <Link
+              to="/services"
+              className="inline-flex items-center px-8 py-3 bg-[#71086E] text-white rounded-lg hover:bg-[#71086E]/80 transition-colors"
+            >
+              Estimate Prices
+              <ChevronRight className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
         </div>
       </section>
+
 
       <section id="about" className="py-24 bg-[#1E3A8A]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -277,7 +285,7 @@ export default function HomePage() {
                 <div className="space-y-4">
                   <div className="flex items-center text-white">
                     <Phone className="h-5 w-5 mr-2" />
-                    <span>+1 (915)232-7873</span>
+                    <span>+1 (915) 232-7873</span>
                   </div>
                   <div className="flex items-center text-white">
                     <Mail className="h-5 w-5 mr-2" />
