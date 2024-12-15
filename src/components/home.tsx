@@ -13,11 +13,40 @@ import {
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu visibility
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent default form submission
+
+    // Collect form data
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        message: formData.get('message'),
+    };
+
+    // Basic validation for email and phone number
+    if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email as string)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    if (data.phone && !/^\d{10}$/.test(data.phone as string)) {
+        alert('Please enter a valid 10-digit phone number.');
+        return;
+    }
+
+    // Simulate form submission
+    console.log('Form submitted:', data);
+    alert('Thank you! Your message has been sent.');
+};
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -297,26 +326,43 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
                 <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    required
                 />
                 <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    required
+                />
+                <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    pattern="[0-9]{10}"
                 />
                 <textarea
-                  placeholder="Message"
-                  rows={4}
-                  className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    name="message"
+                    placeholder="Message"
+                    rows={4}
+                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    required
                 ></textarea>
-                <button className="w-full bg-[#71086E] text-white py-3 rounded-lg hover:bg-[#71086E]/80 transition-colors">
-                  Send Message
+                <button
+                    type="submit"
+                    className="w-full bg-[#71086E] text-white py-3 rounded-lg hover:bg-[#71086E]/80 transition-colors"
+                >
+                    Send Message
                 </button>
-              </form>
+            </form>
+
             </div>
           </div>
         </section>
