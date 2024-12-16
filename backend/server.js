@@ -1,5 +1,12 @@
 require('dotenv').config({ path: './backend/.env' });
 
+
+const cors = require('cors');
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://velvetvaultauto.com'], // Replace with your frontend domain
+    methods: ['GET', 'POST'],
+}));
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const notificationsRouter = require('./notifications');
