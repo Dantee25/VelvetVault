@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 4000; // Use dynamic port for deployment
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://velvetvaultauto.com'], // Replace with your frontend domain
+    origin: ['https://velvet-vault.vercel.app', 'https://velvetvaultauto.com'], 
     methods: ['GET', 'POST'],
 }));
 app.use(bodyParser.json());
