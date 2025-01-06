@@ -249,10 +249,39 @@ export default function CombinedServicesPage() {
     setSummaryText(`${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`);
   }, [selectedVehicle, selectedPackages, selectedAddons, total]);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(summaryText);
-    alert("Summary copied to clipboard!");
+    const copyToClipboard = () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      // Standard clipboard API
+      navigator.clipboard
+        .writeText(summaryText)
+        .then(() => alert("Summary copied to clipboard!"))
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+          fallbackCopyText(summaryText);
+        });
+    } else {
+      // Fallback for older browsers or restricted environments
+      fallbackCopyText(summaryText);
+    }
   };
+  
+  const fallbackCopyText = (text) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed"; // Avoid scrolling to bottom
+    textarea.style.opacity = "0"; // Make it invisible
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      const success = document.execCommand("copy");
+      alert(success ? "Summary copied to clipboard!" : "Failed to copy!");
+    } catch (err) {
+      console.error("Fallback copy failed:", err);
+    }
+    document.body.removeChild(textarea);
+  };
+
 
   return (
     <div className="min-h-screen bg-white relative">
