@@ -246,8 +246,10 @@ export default function CombinedServicesPage() {
 
     const totalText = `Total Price: $${total.toFixed(2)}`;
 
-    setSummaryText(`${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`);
-  }, [selectedVehicle, selectedPackages, selectedAddons, total]);
+    setSummaryText(
+  `${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`
+    );
+
 
     const copyToClipboard = () => {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -499,7 +501,7 @@ export default function CombinedServicesPage() {
                   </div>
                   <div className="flex items-center text-white">
                     <MapPin className="h-5 w-5 mr-2" />
-                    <span>123 Detail Street, Car City, ST 12345</span>
+                    <span>El Paso, Texas</span>
                   </div>
                 </div>
               </div>
