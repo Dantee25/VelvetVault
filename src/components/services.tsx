@@ -16,6 +16,7 @@ export default function CombinedServicesPage() {
   const [selectedAddons, setSelectedAddons] = useState<number[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [summaryText, setSummaryText] = useState<string>("");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const vehicles = [
     {
@@ -160,37 +161,6 @@ export default function CombinedServicesPage() {
     },
   ];
 
-  const [isPopupVisible, setIsPopupVisible] = useState(false); //State for message confirmation pop-up
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        message: formData.get('message'),
-    };
-
-    try {
-        const response = await fetch('https://velvetvault.onrender.com/api/notify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        }); 
-
-        if (response.ok) {
-            setIsPopupVisible(true); // Show confirmation popup
-        } else {
-            alert('Failed to send your message. Please try again.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
-    }
-};
-
   const calculatePrice = (basePrice: number, isAddon = false): number => {
     if (!selectedVehicle) return basePrice;
     const vehicleFee = vehicles.find((v) => v.type === selectedVehicle)?.addedFee || 0;
@@ -247,43 +217,64 @@ export default function CombinedServicesPage() {
     const totalText = `Total Price: $${total.toFixed(2)}`;
 
     setSummaryText(
-  `${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`
+      `${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`
     );
+  }, [selectedVehicle, selectedPackages, selectedAddons, total]);
 
-
-    const copyToClipboard = () => {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      // Standard clipboard API
-      navigator.clipboard
-        .writeText(summaryText)
-        .then(() => alert("Summary copied to clipboard!"))
-        .catch((err) => {
-          console.error("Failed to copy: ", err);
-          fallbackCopyText(summaryText);
-        });
-    } else {
-      // Fallback for older browsers or restricted environments
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(summaryText).then(() => {
+      alert("Summary copied to clipboard!");
+    }).catch((err) => {
+      console.error("Clipboard copy failed:", err);
       fallbackCopyText(summaryText);
-    }
+    });
   };
-  
-  const fallbackCopyText = (text) => {
+
+  const fallbackCopyText = (text: string) => {
     const textarea = document.createElement("textarea");
     textarea.value = text;
-    textarea.style.position = "fixed"; // Avoid scrolling to bottom
-    textarea.style.opacity = "0"; // Make it invisible
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
     document.body.appendChild(textarea);
     textarea.focus();
     textarea.select();
     try {
-      const success = document.execCommand("copy");
-      alert(success ? "Summary copied to clipboard!" : "Failed to copy!");
+      document.execCommand("copy");
+      alert("Summary copied to clipboard!");
     } catch (err) {
       console.error("Fallback copy failed:", err);
     }
     document.body.removeChild(textarea);
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("https://velvetvault.onrender.com/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setIsPopupVisible(true);
+      } else {
+        alert("Failed to send your message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -464,109 +455,109 @@ export default function CombinedServicesPage() {
             </h2>
             <pre className="text-gray-700 bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre-wrap">
               Send as message in Contact Us.
-              <br></br>
-              <br></br>
+              <br />
+              <br />
               {summaryText}
             </pre>
             <button
               onClick={copyToClipboard}
-              className="mt-4 w-full bg-[#71086E] text-white py-3 rounded-lg text-lg font-bold hover:bg-[#71086E]/90 transition-colors"
+              className="mt-4 w-auto bg-[#71086E] text-white py-2 rounded-lg text
+              xl font-bold hover:bg-[#71086E]/90 transition-colors"
+              >
+                Copy to Clipboard
+              </button>
+            </section>
+  
+            <section
+              id="contact"
+              className="py-24 bg-gradient-to-b from-[#1E3A8A] to-black"
             >
-              Copy to Clipboard
-            </button>
-          </section>
-        </div>
-        
-      </main>
-      <section
-          id="contact"
-          className="py-24 bg-gradient-to-b from-[#1E3A8A] to-black"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div>
-                <h2 className="text-4xl font-bold text-white mb-6">Contact Us</h2>
-                <p className="text-white/90 mb-8">
-                  Ready to experience premium auto detailing? Get in touch with us
-                  today.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-center text-white">
-                    <Phone className="h-5 w-5 mr-2" />
-                    <span>+1 (915) 232-7873</span>
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div>
+                    <h2 className="text-4xl font-bold text-white mb-6">
+                      Contact Us
+                    </h2>
+                    <p className="text-white/90 mb-8">
+                      Ready to experience premium auto detailing? Get in touch
+                      with us today.
+                    </p>
+                    <div className="space-y-4">
+                      <div className="flex items-center text-white">
+                        <Phone className="h-5 w-5 mr-2" />
+                        <span>+1 (915) 232-7873</span>
+                      </div>
+                      <div className="flex items-center text-white">
+                        <Mail className="h-5 w-5 mr-2" />
+                        <span>velvetvaultauto@outlook.com</span>
+                      </div>
+                      <div className="flex items-center text-white">
+                        <MapPin className="h-5 w-5 mr-2" />
+                        <span>El Paso, Texas</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center text-white">
-                    <Mail className="h-5 w-5 mr-2" />
-                    <span>velvetvaultauto@outlook.com</span>
-                  </div>
-                  <div className="flex items-center text-white">
-                    <MapPin className="h-5 w-5 mr-2" />
-                    <span>El Paso, Texas</span>
-                  </div>
-                </div>
-              </div>
-              <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Full Name"
-                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
-                    required
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address (Optional)"
-                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
-                />
-                <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number (Optional eg:1234567890)"
-                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
-                    pattern="[0-9]{10}"
-                />
-                <textarea
-                    name="message"
-                    placeholder="Message"
-                    rows={4}
-                    className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
-                    required
-                ></textarea>
-                <button
-                    type="submit"
-                    className="w-full bg-[#71086E] text-white py-3 rounded-lg hover:bg-[#71086E]/80 transition-colors"
-                >
-                    Send Message
-                </button>
-            </form>
-            {isPopupVisible && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 animate-fadeIn">
-                  <div className="bg-white text-[#1E3A8A] p-6 rounded-xl shadow-xl w-80">
-                      
-                      {/* Popup Content */}
-                      <h3 className="text-xl font-semibold mb-3 text-center">Thank You!</h3>
-                      <p className="text-sm text-[#4A5568] text-center mb-6">
-                          Your message has been received. We’ll get back to you shortly.
-                      </p>
-                      {/* Close Button */}
-                      <button
+                  <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Full Name"
+                      className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                      required
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email Address (Optional)"
+                      className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                    />
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone Number (Optional eg:1234567890)"
+                      className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                      pattern="[0-9]{10}"
+                    />
+                    <textarea
+                      name="message"
+                      placeholder="Message"
+                      rows={4}
+                      className="w-full p-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#71086E]"
+                      required
+                    ></textarea>
+                    <button
+                      type="submit"
+                      className="w-full bg-[#71086E] text-white py-3 rounded-lg hover:bg-[#71086E]/80 transition-colors"
+                    >
+                      Send Message
+                    </button>
+                  </form>
+                  {isPopupVisible && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 animate-fadeIn">
+                      <div className="bg-white text-[#1E3A8A] p-6 rounded-xl shadow-xl w-80">
+                        <h3 className="text-xl font-semibold mb-3 text-center">
+                          Thank You!
+                        </h3>
+                        <p className="text-sm text-[#4A5568] text-center mb-6">
+                          Your message has been received. We’ll get back to you
+                          shortly.
+                        </p>
+                        <button
                           onClick={() => setIsPopupVisible(false)}
                           className="w-full bg-[#71086E] text-white py-2 rounded-lg hover:bg-[#71086E]/90 transition-transform transform hover:scale-105 shadow-md"
-                      >
+                        >
                           Close
-                      </button>
-                  </div>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-
-
-
-
-            </div>
+            </section>
           </div>
-        </section>
-    </div>
-  );
-}
+        </main>
+      </div>
+    );
+  }
+  
 
