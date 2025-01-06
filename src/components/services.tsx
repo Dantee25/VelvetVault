@@ -9,162 +9,77 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
+import { FaTruckPickup, FaCar, FaCarSide, FaTruckMonster } from "react-icons/fa";
 
 export default function CombinedServicesPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [selectedVehicle, setSelectedVehicle] = useState<string | null>(null);
   const [selectedPackages, setSelectedPackages] = useState<number[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<number[]>([]);
+  const [selectedPolishOption, setSelectedPolishOption] = useState<number | null>(null);
   const [total, setTotal] = useState<number>(0);
   const [summaryText, setSummaryText] = useState<string>("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const vehicles = [
-    {
-      type: "Coupe",
-      addedFee: 0,
-      icon: Car,
-    },
-    {
-      type: "Sedan",
-      addedFee: 20,
-      icon: Car,
-    },
-    {
-      type: "Small Truck",
-      addedFee: 30,
-      icon: Truck,
-    },
-    {
-      type: "Big Truck",
-      addedFee: 50,
-      icon: Truck,
-    },
-    {
-      type: "SUV",
-      addedFee: 40,
-      icon: Car,
-    },
+    { type: "Coupe", addedFee: 0, icon: FaCar },
+    { type: "Sedan", addedFee: 20, icon: FaCarSide },
+    { type: "Small Truck", addedFee: 30, icon: FaTruckPickup },
+    { type: "Big Truck", addedFee: 40, icon: FaTruckMonster },
+    { type: "SUV", addedFee: 40, icon: Car },
   ];
 
   const services = [
     {
       id: 1,
       type: "package",
-      name: "Maintenance Interior Deep Clean",
+      name: "Maintenance Interior Clean",
       basePrice: 50,
       description: "A routine interior cleaning to keep your car fresh.",
-      features: [
-        "Carpet and Seat Shampoo",
-        "Minimal Stain Removal",
-        "Full Console and Dashboard Wipe Down",
-        "Vacuuming",
-      ],
+      features: ["Carpet and Seat Shampoo", "Minimal Stain Removal", "Full Console and Dashboard Wipe Down", "Vacuuming"],
     },
     {
       id: 2,
       type: "package",
       name: "Extreme Interior Deep Clean",
-      basePrice: 120,
+      basePrice: 90,
       description: "A comprehensive interior overhaul for a like-new feel.",
-      features: [
-        "Full Dashboard and Console Deep Clean",
-        "Carpet Shampoo/Extraction",
-        "Seat Shampoo/Extraction",
-        "Leather Conditioning",
-        "Stain Removal",
-        "Vacuuming",
-        "Pet Hair Removal",
-      ],
+      features: ["Full Dashboard and Console Deep Clean", "Carpet Shampoo/Extraction", "Leather Conditioning", "Stain Removal", "Vacuuming", "Pet Hair Removal"],
     },
     {
       id: 3,
       type: "package",
       name: "Exterior Deep Clean",
-      basePrice: 60,
+      basePrice: 50,
       description: "A top-to-bottom exterior transformation for your vehicle.",
-      features: [
-        "Tire and Rim Deep Clean",
-        "Clay Bar Treatment",
-        "Engine Bay Cleaning",
-        "Headlight Restoration",
-      ],
+      features: ["Tire and Rim Deep Clean", "Clay Bar Treatment", "Headlight Restoration","Exhaust Tips Clean","Quick Spray Wax","Plastic Trim Restoration"],
     },
     {
       id: 4,
-      type: "addon",
-      category: "interior",
-      name: "Carpet Shampoo/Extraction",
-      basePrice: 50,
-    },
-    {
-      id: 5,
-      type: "addon",
-      category: "interior",
-      name: "Seat Shampoo/Extraction",
-      basePrice: 50,
-    },
-    {
-      id: 6,
-      type: "addon",
-      category: "interior",
-      name: "Stain Removal",
-      basePrice: 40,
-    },
-    {
-      id: 7,
-      type: "addon",
-      category: "interior",
-      name: "Leather Conditioning",
-      basePrice: 20,
-    },
-    {
-      id: 8,
-      type: "addon",
-      category: "interior",
-      name: "Pet Hair Removal",
-      basePrice: 20,
-    },
-    {
-      id: 9,
-      type: "addon",
-      category: "exterior",
-      name: "Polish and Wax",
+      type: "package",
+      name: "Paint Enhancement",
       basePrice: 100,
+      description: "Choose from multiple paint enhancement options.",
+      features: [],
+      options: [
+        { id: 4.1, name: "Polish & Wax", additionalPrice: 0 },
+        { id: 4.2, name: "1-Step Paint Correction", additionalPrice: 50 },
+        { id: 4.3, name: "2-Step Paint Correction", additionalPrice: 100 },
+      ],
     },
-    {
-      id: 10,
-      type: "addon",
-      category: "exterior",
-      name: "Tire and Rim Deep Clean",
-      basePrice: 30,
-    },
-    {
-      id: 11,
-      type: "addon",
-      category: "exterior",
-      name: "Clay Bar Treatment",
-      basePrice: 30,
-    },
-    {
-      id: 12,
-      type: "addon",
-      category: "exterior",
-      name: "Engine Bay Cleaning",
-      basePrice: 40,
-    },
-    {
-      id: 13,
-      type: "addon",
-      category: "exterior",
-      name: "Headlight Restoration",
-      basePrice: 40,
-    },
+    { id: 5, type: "addon", category: "interior", name: "Pet Hair Removal", basePrice: 20, requiresPackage: undefined },
+    { id: 6, type: "addon", category: "interior", name: "Stain Removal", basePrice: 25, requiresPackage: undefined },
+    { id: 7, type: "addon", category: "exterior", name: "Clay Bar Treatment", basePrice: 30, requiresPackage: undefined },
+    { id: 8, type: "addon", category: "exterior", name: "Tire and Rim Deep Clean", basePrice: 30, requiresPackage: undefined },
+    { id: 9, type: "addon", category: "exterior", name: "Headlight Restoration", basePrice: 15, requiresPackage: undefined },
   ];
 
-  const calculatePrice = (basePrice: number, isAddon = false): number => {
-    if (!selectedVehicle) return basePrice;
+  const calculatePrice = (basePrice: number, additionalPrice = 0, isAddon = false): number => {
+    if (!selectedVehicle) return basePrice + additionalPrice;
     const vehicleFee = vehicles.find((v) => v.type === selectedVehicle)?.addedFee || 0;
-    return basePrice + (isAddon ? 0 : vehicleFee);
+    return basePrice + additionalPrice + (isAddon ? 0 : vehicleFee);
   };
 
   const isAddonIncludedInPackage = (addonName: string): boolean => {
@@ -172,6 +87,14 @@ export default function CombinedServicesPage() {
       const pkg = services.find((service) => service.id === id);
       return pkg?.features?.some((feature) => feature === addonName);
     });
+  };
+
+  const isAddonEligible = (addonId: number): boolean => {
+    const addon = services.find((service) => service.id === addonId);
+    if (addon?.requiresPackage) {
+      return selectedPackages.includes(addon.requiresPackage);
+    }
+    return true;
   };
 
   useEffect(() => {
@@ -184,6 +107,10 @@ export default function CombinedServicesPage() {
 
     const packageTotal = selectedPackages.reduce((sum, id) => {
       const pkg = services.find((service) => service.id === id);
+      if (pkg?.id === 4 && selectedPolishOption) {
+        const option = pkg.options?.find((opt) => opt.id === selectedPolishOption);
+        return sum + calculatePrice(pkg.basePrice, option?.additionalPrice || 0);
+      }
       return sum + (pkg?.basePrice || 0);
     }, 0);
 
@@ -193,7 +120,7 @@ export default function CombinedServicesPage() {
     }, 0);
 
     setTotal(packageTotal + addonTotal + vehicleFee);
-  }, [selectedVehicle, selectedPackages, selectedAddons]);
+  }, [selectedVehicle, selectedPackages, selectedAddons, selectedPolishOption]);
 
   useEffect(() => {
     if (!selectedVehicle) return;
@@ -203,6 +130,10 @@ export default function CombinedServicesPage() {
     const packages = selectedPackages
       .map((id) => {
         const pkg = services.find((service) => service.id === id);
+        if (pkg?.id === 4 && selectedPolishOption) {
+          const option = pkg.options?.find((opt) => opt.id === selectedPolishOption);
+          return pkg ? `${pkg.name} (${option?.name || ""}) - $${calculatePrice(pkg.basePrice, option?.additionalPrice || 0).toFixed(2)}` : "";
+        }
         return pkg ? `${pkg.name} - $${pkg.basePrice + vehicleFee}` : "";
       })
       .join("\n");
@@ -216,18 +147,47 @@ export default function CombinedServicesPage() {
 
     const totalText = `Total Price: $${total.toFixed(2)}`;
 
-    setSummaryText(
-      `${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`
-    );
-  }, [selectedVehicle, selectedPackages, selectedAddons, total]);
+    setSummaryText(`${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`);
+  }, [selectedVehicle, selectedPackages, selectedAddons, selectedPolishOption, total]);
+
+  useEffect(() => {
+    if (!selectedVehicle) return;
+
+    const vehicleFee = vehicles.find((v) => v.type === selectedVehicle)?.addedFee || 0;
+    const vehicle = `Vehicle: ${selectedVehicle}`;
+    const packages = selectedPackages
+      .map((id) => {
+        const pkg = services.find((service) => service.id === id);
+        if (pkg?.id === 4 && selectedPolishOption) {
+          const option = pkg.options?.find((opt) => opt.id === selectedPolishOption);
+          return pkg ? `${pkg.name} (${option?.name || ""}) - $${calculatePrice(pkg.basePrice, option?.additionalPrice || 0).toFixed(2)}` : "";
+        }
+        return pkg ? `${pkg.name} - $${pkg.basePrice + vehicleFee}` : "";
+      })
+      .join("\n");
+
+    const addons = selectedAddons
+      .map((id) => {
+        const addon = services.find((service) => service.id === id);
+        return addon ? `${addon.name} - $${addon.basePrice}` : "";
+      })
+      .join("\n");
+
+    const totalText = `Total Price: $${total.toFixed(2)}`;
+
+    setSummaryText(`${vehicle}\n\nPackages:\n${packages}\n\nAdd-ons:\n${addons}\n\n${totalText}`);
+  }, [selectedVehicle, selectedPackages, selectedAddons, selectedPolishOption, total]);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(summaryText).then(() => {
-      alert("Summary copied to clipboard!");
-    }).catch((err) => {
-      console.error("Clipboard copy failed:", err);
-      fallbackCopyText(summaryText);
-    });
+    navigator.clipboard
+      .writeText(summaryText)
+      .then(() => {
+        alert("Summary copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Clipboard copy failed:", err);
+        fallbackCopyText(summaryText);
+      });
   };
 
   const fallbackCopyText = (text: string) => {
@@ -362,47 +322,69 @@ export default function CombinedServicesPage() {
                       </h3>
                       <p className="text-gray-600 mb-4">{service.description}</p>
                       <div className="text-2xl font-bold text-[#71086E] mb-4">
-                        ${calculatePrice(service.basePrice).toFixed(2)}
+                        {service.id === 4 && selectedPolishOption
+                          ? `$${calculatePrice(
+                              service.basePrice,
+                              service.options?.find((opt) => opt.id === selectedPolishOption)
+                                ?.additionalPrice || 0
+                            ).toFixed(2)}`
+                          : `$${calculatePrice(service.basePrice).toFixed(2)}`}
                       </div>
                       <ul className="space-y-2 mb-6">
                         {service.features?.map((feature, index) => (
-                          <li
-                            key={index}
-                            className="flex items-center"
-                          >
+                          <li key={index} className="flex items-center">
                             <Check className="h-5 w-5 text-[#71086E] mr-2" />
                             <span className="text-gray-600">{feature}</span>
                           </li>
                         ))}
                       </ul>
-                      <button
-                        onClick={() =>
-                          setSelectedPackages((prev) => {
-                            if (prev.includes(service.id)) {
-                              return prev.filter((id) => id !== service.id);
-                            } else {
-                              const conflictingId = service.id === 1 ? 2 : 1;
-                              return prev
-                                .filter((id) => id !== conflictingId)
-                                .concat(service.id);
-                            }
-                          })
-                        }
-                        className={`w-full py-3 rounded-lg transition-colors ${
-                          selectedPackages.includes(service.id)
-                            ? "bg-[#71086E] text-white"
-                            : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-                        }`}
-                      >
-                        {selectedPackages.includes(service.id)
-                          ? "Selected"
-                          : "Select Package"}
-                      </button>
+                      {service.id === 4 ? (
+                        <div className="flex flex-col gap-2">
+                          {service.options?.map((option) => (
+                            <button
+                              key={option.id}
+                              onClick={() => {
+                                setSelectedPackages([service.id]);
+                                setSelectedPolishOption(option.id);
+                              }}
+                              className={`w-full py-3 rounded-lg transition-colors ${
+                                selectedPolishOption === option.id
+                                  ? "bg-[#71086E] text-white"
+                                  : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                              }`}
+                            >
+                              {option.name}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            setSelectedPackages((prev) => {
+                              if (prev.includes(service.id)) {
+                                return prev.filter((id) => id !== service.id);
+                              } else {
+                                return [...prev, service.id];
+                              }
+                            })
+                          }
+                          className={`w-full py-3 rounded-lg transition-colors ${
+                            selectedPackages.includes(service.id)
+                              ? "bg-[#71086E] text-white"
+                              : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                          }`}
+                        >
+                          {selectedPackages.includes(service.id)
+                            ? "Selected"
+                            : "Select Package"}
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
             </div>
           </section>
+
 
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-center mb-8 text-[#1E3A8A]">
@@ -460,14 +442,15 @@ export default function CombinedServicesPage() {
               {summaryText}
             </pre>
             <button
+              
               onClick={copyToClipboard}
-              className="mt-4 w-auto bg-[#71086E] text-white py-2 rounded-lg text
-              xl font-bold hover:bg-[#71086E]/90 transition-colors"
+              className="mt-4 w-full bg-[#71086E] text-white py-3 rounded-lg text-lg font-bold hover:bg-[#71086E]/90 transition-colors"
               >
                 Copy to Clipboard
               </button>
             </section>
-  
+          </div>
+          </main>
             <section
               id="contact"
               className="py-24 bg-gradient-to-b from-[#1E3A8A] to-black"
@@ -554,8 +537,8 @@ export default function CombinedServicesPage() {
                 </div>
               </div>
             </section>
-          </div>
-        </main>
+          
+        
       </div>
     );
   }
