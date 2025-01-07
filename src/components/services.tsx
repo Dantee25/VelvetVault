@@ -25,10 +25,10 @@ export default function CombinedServicesPage() {
 
   const vehicles = [
     { type: "Coupe", addedFee: 0, icon: FaCar },
-    { type: "Sedan", addedFee: 20, icon: FaCarSide },
-    { type: "Small Truck", addedFee: 30, icon: FaTruckPickup },
-    { type: "Big Truck", addedFee: 40, icon: FaTruckMonster },
-    { type: "SUV", addedFee: 40, icon: Car },
+    { type: "Sedan", addedFee: 10, icon: FaCarSide },
+    { type: "Small Truck", addedFee: 20, icon: FaTruckPickup },
+    { type: "Big Truck", addedFee: 30, icon: FaTruckMonster },
+    { type: "SUV", addedFee: 30, icon: Car },
   ];
 
   const services = [
@@ -44,7 +44,7 @@ export default function CombinedServicesPage() {
       id: 2,
       type: "package",
       name: "Extreme Interior Deep Clean",
-      basePrice: 90,
+      basePrice: 80,
       description: "A comprehensive interior overhaul for a like-new feel.",
       features: ["Full Dashboard and Console Deep Clean", "Carpet Shampoo/Extraction", "Leather Conditioning", "Stain Removal", "Vacuuming", "Pet Hair Removal"],
     },
@@ -102,24 +102,24 @@ export default function CombinedServicesPage() {
       setTotal(0);
       return;
     }
-
+  
     const vehicleFee = vehicles.find((v) => v.type === selectedVehicle)?.addedFee || 0;
-
+  
     const packageTotal = selectedPackages.reduce((sum, id) => {
       const pkg = services.find((service) => service.id === id);
       if (pkg?.id === 4 && selectedPolishOption) {
         const option = pkg.options?.find((opt) => opt.id === selectedPolishOption);
-        return sum + calculatePrice(pkg.basePrice, option?.additionalPrice || 0);
+        return sum + calculatePrice(pkg.basePrice + vehicleFee, option?.additionalPrice || 0);
       }
-      return sum + (pkg?.basePrice || 0);
+      return sum + (pkg?.basePrice || 0) + vehicleFee;
     }, 0);
-
+  
     const addonTotal = selectedAddons.reduce((sum, id) => {
       const addon = services.find((service) => service.id === id);
       return sum + (addon?.basePrice || 0);
     }, 0);
-
-    setTotal(packageTotal + addonTotal + vehicleFee);
+  
+    setTotal(packageTotal + addonTotal);
   }, [selectedVehicle, selectedPackages, selectedAddons, selectedPolishOption]);
 
   useEffect(() => {
@@ -543,4 +543,3 @@ export default function CombinedServicesPage() {
     );
   }
   
-
