@@ -170,11 +170,13 @@ export default function HomePage() {
           {/* CTA Button */}
           <Link
             to="/services"
-            className="inline-flex items-center px-8 py-3 bg-[#71086E] text-white rounded-lg hover:bg-[#71086E]/80 transition-transform transform hover:scale-105 opacity-100 animate-fadeIn delay-400"
+            className="inline-flex items-center px-10 py-4 text-lg font-bold text-white bg-[#71086E] rounded-full 
+                      hover:bg-[#5E0660] transition-all transform hover:scale-110 shadow-lg"
           >
             Explore Services
-            <ChevronRight className="ml-2 h-5 w-5" />
+            <ChevronRight className="ml-3 h-6 w-6" />
           </Link>
+
         </div>
       </section>
 
@@ -186,9 +188,10 @@ export default function HomePage() {
         className="py-24 bg-gradient-to-b from-white to-gray-50"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16 text-[#1E3A8A]">
-            Our Services
-          </h2>
+        <h2 className="text-5xl font-extrabold text-center text-[#71086E] mb-6 relative">
+          Our Services
+        </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -231,21 +234,24 @@ export default function HomePage() {
           </div>
           {/* Button Section */}
           <div className="mt-16 flex justify-center">
-            <Link
-              to="/services"
-              className="inline-flex items-center px-8 py-3 bg-[#71086E] text-white rounded-lg hover:bg-[#71086E]/80 transition-colors"
-            >
-              Estimate Prices
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Link>
+          <Link
+            to="/services"
+            className="inline-flex items-center px-10 py-4 text-lg font-bold border-2 border-[#71086E] text-[#71086E] 
+                      rounded-full hover:bg-[#71086E] hover:text-white transition-all transform hover:scale-105 shadow-md"
+          >
+            Estimate Prices
+            <ChevronRight className="ml-3 h-6 w-6" />
+          </Link>
+
           </div>
         </div>
       </section>
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-[#1E3A8A] mb-6">
+          <h2 className="text-5xl font-extrabold text-[#71086E] mb-6 tracking-wide">
             Check Us Out on Instagram! 📸
           </h2>
+
           <p className="text-gray-600 text-lg mb-8">
             See our latest detailing work, transformations, and high-end edits!
           </p>
@@ -260,14 +266,16 @@ export default function HomePage() {
 
           {/* Instagram Button */}
           <div className="mt-8">
-            <a
-              href="https://www.instagram.com/velvetvaultauto"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-3 bg-[#71086E] text-white rounded-lg hover:bg-[#71086E]/80 transition-transform transform hover:scale-105"
-            >
-              Follow & Book on Instagram
-            </a>
+          <a
+            href="https://www.instagram.com/velvetvaultauto"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-10 py-4 text-lg font-bold text-white bg-gradient-to-r from-[#FF6B6B] to-[#71086E] 
+                      rounded-full hover:opacity-90 transition-all transform hover:scale-110 shadow-xl"
+          >
+            📸 Follow & Book Now
+          </a>
+
           </div>
         </div>
       </section>
@@ -277,9 +285,10 @@ export default function HomePage() {
           className="py-24 bg-gradient-to-b from-gray-50 to-white"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold text-center mb-16 text-[#1E3A8A]">
-              Reviews
-            </h2>
+          <h2 className="text-5xl font-extrabold text-center text-[#71086E] mb-6 flex items-center justify-center gap-2">
+            ⭐ Customer Reviews ⭐
+          </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
