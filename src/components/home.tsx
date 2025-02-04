@@ -146,29 +146,38 @@ export default function HomePage() {
         )}
       </nav>
 
-      <section className="relative h-screen">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-[#71086E]/50" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Premium Auto Detailing Services
-            </h1>
-            <p className="text-xl text-white/90 mb-8">
-              Experience the ultimate in automotive care with our professional
-              detailing services
-            </p>
-            <a
-              href="#services"
-              className="inline-flex items-center px-8 py-3 bg-[#71086E] text-white rounded-lg hover:bg-[#71086E]/80 transition-colors"
-            >
-              Explore Services
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </a>
-          </div>
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+          style={{ backgroundImage: `url(${ExteriorImage})`, zIndex: 0 }}
+        ></div>
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-[#71086E]/50" style={{ zIndex: 1 }}></div>
+
+        {/* Content (Ensure it's on top) */}
+        <div className="relative max-w-3xl text-center text-white px-6" style={{ zIndex: 2 }}>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 opacity-100 animate-fadeIn">
+            Premium Auto Detailing Services
+          </h1>
+          <p className="text-xl text-white/90 mb-8 opacity-100 animate-fadeIn delay-200">
+            Experience the ultimate in automotive care with our professional detailing services.
+          </p>
+
+          {/* CTA Button */}
+          <Link
+            to="/services"
+            className="inline-flex items-center px-8 py-3 bg-[#71086E] text-white rounded-lg hover:bg-[#71086E]/80 transition-transform transform hover:scale-105 opacity-100 animate-fadeIn delay-400"
+          >
+            Explore Services
+            <ChevronRight className="ml-2 h-5 w-5" />
+          </Link>
         </div>
       </section>
+
+
+
 
       <section
         id="services"
@@ -206,6 +215,7 @@ export default function HomePage() {
                 <img
                   src={service.image}
                   alt={service.title}
+                  loading="lazy"
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
