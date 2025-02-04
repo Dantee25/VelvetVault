@@ -12,6 +12,11 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import InteriorImage from "./images/InteriorImageHome.jpg";
+import ExteriorImage from "./images/ExteriorImage.jpg";
+import PaintImage from "./images/PaintImage.jpg";
+
+
 export default function HomePage() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu visibility
@@ -177,21 +182,21 @@ export default function HomePage() {
             {[
               {
                 title: "Interior Detailing",
-                description: "Complete interior cleaning and restoration services",
+                description: "Complete interior cleaning and restoration services.",
                 image:
-                  "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80",
+                  InteriorImage,
               },
               {
                 title: "Exterior Detailing",
-                description: "Professional washing, waxing, and paint protection",
+                description: "Professional washing, rim and tire detailing, headlight restorations, and window cleaning.",
                 image:
-                  "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&q=80",
+                  ExteriorImage,
               },
               {
-                title: "Premium Packages",
-                description: "Comprehensive detailing solutions for your vehicle",
+                title: "Paint Corrections",
+                description: "Profession polish and waxing, 1 and 2 step paint corrections, and coatings.",
                 image:
-                  "https://images.unsplash.com/photo-1600275669439-14e40452d20b?auto=format&fit=crop&q=80",
+                  PaintImage,
               },
             ].map((service, index) => (
               <div
@@ -224,67 +229,31 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-
-      <section id="about" className="py-24 bg-[#1E3A8A]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl font-bold text-white mb-6">About Us</h2>
-                <p className="text-white/90 mb-6">
-                  With over a decade of experience in premium auto detailing, we
-                  provide unmatched service quality and customer satisfaction.
-                </p>
-                <ul className="space-y-4">
-                  {[
-                    "Professional Equipment",
-                    "Certified Technicians",
-                    "Premium Products",
-                    "Satisfaction Guaranteed",
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-center text-white">
-                      <Star className="h-5 w-5 mr-2 text-[#71086E]" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="relative h-96">
-                <img
-                  src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80"
-                  alt="Detailing process"
-                  className="rounded-lg object-cover w-full h-full"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-  
         <section
           id="testimonials"
           className="py-24 bg-gradient-to-b from-gray-50 to-white"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl font-bold text-center mb-16 text-[#1E3A8A]">
-              Client Testimonials
+              Reviews
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  name: "John Smith",
+                  name: "Ricardo G.",
                   comment:
-                    "Exceptional service! My car looks better than when it was new.",
+                    "He left my 2013 Tacoma look like a 2025 Tundra. Amazing work.",
                   rating: 5,
                 },
                 {
-                  name: "Sarah Johnson",
+                  name: "Daniel M.",
                   comment:
-                    "Professional, thorough, and attention to detail is outstanding.",
+                    "He left my busted 6 year old mats look like the day I bought them..",
                   rating: 5,
                 },
                 {
-                  name: "Michael Brown",
-                  comment: "Best auto detailing service I've ever experienced.",
+                  name: "Lebron James",
+                  comment: "Best Detailer in Town. No cap.",
                   rating: 5,
                 },
               ].map((testimonial, index) => (
@@ -328,7 +297,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center text-white">
                     <MapPin className="h-5 w-5 mr-2" />
-                    <span>123 Detail Street, Car City, ST 12345</span>
+                    <span>El Paso, Texas</span>
                   </div>
                 </div>
               </div>
@@ -446,7 +415,7 @@ export default function HomePage() {
                 <h4 className="font-bold mb-4">Follow Us</h4>
                 <div className="flex space-x-4">
                   <a
-                    href="https://www.tiktok.com/@velvetvaultautode" // Replace with your TikTok profile URL
+                    href="https://www.tiktok.com/@velvetvaultautode"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white/60 hover:text-white"
@@ -454,7 +423,7 @@ export default function HomePage() {
                     <FaTiktok className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://www.facebook.com/profile.php?id=61569906939845" // Replace with your Facebook profile URL
+                    href="https://www.facebook.com/profile.php?id=61569906939845"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white/60 hover:text-white"
