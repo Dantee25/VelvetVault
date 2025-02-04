@@ -81,23 +81,23 @@ export default function HomePage() {
               Velvet Vault Auto Detailing
             </div>
             <div className="hidden md:flex space-x-8">
+            <a
+                href="#services"
+                className="text-gray-800 hover:text-[#71086E] transition-colors"
+              >
+                Services
+              </a>
               <Link
                 to="/services"
                 className="text-gray-800 hover:text-[#71086E] transition-colors"
               >
-                Services
+                Pricing
               </Link>
               <a
-                href="#gallery"
+                href="#instagram"
                 className="text-gray-800 hover:text-[#71086E] transition-colors"
               >
-                Gallery
-              </a>
-              <a
-                href="#about"
-                className="text-gray-800 hover:text-[#71086E] transition-colors"
-              >
-                About
+                Instagram
               </a>
               <a
                 href="#contact"
@@ -115,26 +115,26 @@ export default function HomePage() {
         {isMenuOpen && (
           <div className="md:hidden bg-white shadow-lg">
             <div className="flex flex-col space-y-4 p-4">
+              <a
+                href="#services"
+                className="text-gray-800 hover:text-[#71086E] transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Services
+              </a>
               <Link
                 to="/services"
                 className="text-gray-800 hover:text-[#71086E] transition-colors"
                 onClick={() => setIsMenuOpen(false)} // Close menu on click
               >
-                Services
+                Pricing
               </Link>
               <a
-                href="#gallery"
+                href="#instagram"
                 className="text-gray-800 hover:text-[#71086E] transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Gallery
-              </a>
-              <a
-                href="#about"
-                className="text-gray-800 hover:text-[#71086E] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
+                Instagram
               </a>
               <a
                 href="#contact"
@@ -246,7 +246,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className="py-24 bg-gray-50">
+      <section 
+      id="instagram"
+      className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-5xl font-extrabold text-[#71086E] mb-6 tracking-wide">
             Check Us Out on Instagram! 📸
@@ -438,13 +440,8 @@ export default function HomePage() {
                     </a>
                   </li>
                   <li>
-                    <a href="#gallery" className="text-white/60 hover:text-white">
-                      Gallery
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#about" className="text-white/60 hover:text-white">
-                      About
+                    <a href="#instagram" className="text-white/60 hover:text-white">
+                      Instagram
                     </a>
                   </li>
                   <li>
