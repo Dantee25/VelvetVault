@@ -15,7 +15,9 @@ import { Link } from "react-router-dom";
 import InteriorImage from "./images/InteriorImageHome.jpg";
 import ExteriorImage from "./images/ExteriorImage.jpg";
 import PaintImage from "./images/PaintImage.jpg";
-
+import Insta1 from "./images/Insta1.jpg";
+import Insta2 from "./images/Insta2.jpg";
+import Insta3 from "./images/Insta3.jpg";
 
 export default function HomePage() {
 
@@ -239,6 +241,37 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-[#1E3A8A] mb-6">
+            Check Us Out on Instagram! 📸
+          </h2>
+          <p className="text-gray-600 text-lg mb-8">
+            See our latest detailing work, transformations, and high-end edits!
+          </p>
+
+          {/* Instagram Preview (Replace with your best posts) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <img src={Insta1} alt="Detailing Work" className="rounded-lg shadow-lg"/>
+            <img src={Insta2} alt="Luxury Car Polishing" className="rounded-lg shadow-lg"/>
+            <img src={Insta3} alt="Interior Deep Clean" className="rounded-lg shadow-lg"/>
+          </div>
+
+
+          {/* Instagram Button */}
+          <div className="mt-8">
+            <a
+              href="https://www.instagram.com/velvetvaultauto"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-3 bg-[#71086E] text-white rounded-lg hover:bg-[#71086E]/80 transition-transform transform hover:scale-105"
+            >
+              Follow & Book on Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+
         <section
           id="testimonials"
           className="py-24 bg-gradient-to-b from-gray-50 to-white"
@@ -441,7 +474,7 @@ export default function HomePage() {
                     <Facebook className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://www.instagram.com/yourprofile" // Replace with your Instagram profile URL
+                    href="https://www.instagram.com/velvetvaultauto" // Replace with your Instagram profile URL
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white/60 hover:text-white"

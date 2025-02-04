@@ -1,27 +1,19 @@
 #!/bin/bash
 
-# Display the current git status
-echo "Checking Git status..."
+
+echo "Git status"
 git status
 
-# Add all changes
-echo "Adding all changes..."
+echo "Adding changes"
 git add .
 
-# Commit with a message
-echo "Committing changes..."
-git commit -m "$1"
+echo "Committing changes"
+git commit -m "Auto-Deploy"
 
-# Push changes to origin/main
-echo "Pushing changes to origin/main..."
+echo "Pushing changes"
 git push origin main
 
-# Build the project
-echo "Building the project..."
-npm run build
-
-# Deploy the project
-echo "Deploying the project..."
+echo "Deploying"
 npm run deploy
 
-echo "All steps completed successfully!"
+echo "Done"
