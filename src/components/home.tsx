@@ -168,14 +168,14 @@ export default function HomePage() {
           </p>
 
           {/* CTA Button */}
-          <Link
-            to="/services"
+          <a
+            href="#services"
             className="inline-flex items-center px-10 py-4 text-lg font-bold text-white bg-[#71086E] rounded-full 
                       hover:bg-[#5E0660] transition-all transform hover:scale-110 shadow-lg"
           >
             Explore Services
             <ChevronRight className="ml-3 h-6 w-6" />
-          </Link>
+          </a>
 
         </div>
       </section>
